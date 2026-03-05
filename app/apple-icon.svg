@@ -1,5 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
-  <rect width="180" height="180" rx="40" fill="#1e3a5f"/>
-  <path d="M45 112L79 78L101 100L135 56" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M112 56H135V79" stroke="#22c55e" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="#0d0d1a"/>
+  <!-- Gold gradient -->
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#c8a35a"/>
+      <stop offset="100%" stop-color="#b8963a"/>
+    </linearGradient>
+  </defs>
+  <!-- H letter -->
+  <text x="90" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="110" fill="url(#gold)">H</text>
 </svg>

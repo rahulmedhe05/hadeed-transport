@@ -1,12 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- Background -->
+  <rect width="180" height="180" rx="40" fill="#0d0d1a"/>
+  <!-- Gold gradient -->
   <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#1e40af"/>
-      <stop offset="100%" style="stop-color:#0891b2"/>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="50%" stop-color="#c8a35a"/>
+      <stop offset="100%" stop-color="#b8963a"/>
     </linearGradient>
   </defs>
-  <rect width="180" height="180" rx="36" fill="url(#g)"/>
-  <path d="M90 28 C90 28 50 78 50 104 C50 126 68 144 90 144 C112 144 130 126 130 104 C130 78 90 28 90 28Z" fill="white" opacity="0.95"/>
-  <path d="M90 55 C90 55 68 90 68 104 C68 116 78 126 90 126 C102 126 112 116 112 104 C112 90 90 55 90 55Z" fill="url(#g)" opacity="0.3"/>
-  <path d="M78 96 Q84 84 93 96 Q102 108 84 113" stroke="white" stroke-width="4" fill="none" opacity="0.5"/>
+  <!-- H letter -->
+  <text x="90" y="125" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="110" fill="url(#gold)">H</text>
 </svg>
