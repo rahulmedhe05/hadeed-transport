@@ -66,6 +66,74 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  verification: {
+    google: "c1b155cb6acd07f9",
+  },
+}
+
+// Organization Schema for all pages
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://hadeed-transport.com/#organization",
+  name: "Hadeed Transport",
+  url: "https://hadeed-transport.com",
+  logo: "https://hadeed-transport.com/logo.png",
+  description: "Leading equipment rental and space solutions provider in Abu Dhabi, UAE. Offering cranes, forklifts, generators, warehouses, and storage facilities.",
+  foundingDate: "2009",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+971506266515",
+      contactType: "customer service",
+      availableLanguage: ["English", "Arabic", "Hindi", "Urdu"],
+      areaServed: "AE",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+971506266515",
+      contactType: "sales",
+      availableLanguage: ["English", "Arabic"],
+      areaServed: "AE",
+    },
+  ],
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "ICAD III",
+    addressLocality: "Abu Dhabi",
+    addressRegion: "Abu Dhabi",
+    addressCountry: "AE",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "24.35",
+    longitude: "54.48",
+  },
+  sameAs: [
+    "https://www.facebook.com/hadeedtransport",
+    "https://www.instagram.com/hadeedtransport",
+    "https://www.linkedin.com/company/hadeedtransport",
+  ],
+}
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://hadeed-transport.com/#website",
+  url: "https://hadeed-transport.com",
+  name: "Hadeed Transport",
+  description: "Equipment & Space Rentals in Abu Dhabi",
+  publisher: {
+    "@id": "https://hadeed-transport.com/#organization",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://hadeed-transport.com/equipments?q={search_term_string}",
+    },
+    "query-input": "required name=search_term_string",
+  },
 }
 
 export default function RootLayout({
@@ -75,6 +143,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        {/* Global Organization Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {/* Website Schema */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+        />
+        {/* Preconnect to external resources */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+      </head>
       <body className="min-h-screen bg-background font-sans antialiased">
         {children}
         <Analytics />
