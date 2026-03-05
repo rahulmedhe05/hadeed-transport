@@ -14,8 +14,16 @@ import {
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import { BookingForm } from "@/components/booking-form"
 import { allCities } from "@/lib/areas"
 import { equipmentCategories, spaceRentals, SITE_CONFIG } from "@/lib/data"
+
+// City hero images
+const cityImages: Record<string, string> = {
+  dubai: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop",
+  "abu-dhabi": "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=80&w=2070&auto=format&fit=crop",
+  sharjah: "https://images.unsplash.com/photo-1578895101408-1a36b834405b?q=80&w=2070&auto=format&fit=crop",
+}
 
 interface Props {
   params: Promise<{ city: string; area: string }>
@@ -114,52 +122,51 @@ export default async function AreaPage({ params }: Props) {
       </div>
 
       {/* Hero */}
-      <section className="py-20 bg-[#0d0d1a]">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6">
-              <MapPin className="w-4 h-4 text-[#c8a35a]" />
-              <span className="text-[#c8a35a] text-sm font-semibold">
-                {area.name}, {city.name}
-              </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Equipment Rental &amp; Space Solutions in {area.name}
-            </h1>
-            <p className="text-gray-300 text-lg leading-relaxed mb-8">
-              {area.description}
-            </p>
+      <section className="relative py-20 bg-[#0d0d1a] overflow-hidden min-h-[60vh] flex items-center">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src={cityImages[city.slug] || cityImages["abu-dhabi"]}
+            alt={area.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a]/95 via-[#0d0d1a]/85 to-[#0d0d1a]/70" />
+        </div>
 
-            {/* Highlights */}
-            <div className="flex flex-wrap gap-3 mb-10">
-              {area.highlights.map((h, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-2 bg-[#1a1a2e] border border-[#c8a35a]/15 rounded-full px-4 py-2"
-                >
-                  <CheckCircle2 className="w-4 h-4 text-[#c8a35a]" />
-                  <span className="text-gray-300 text-sm">{h}</span>
-                </div>
-              ))}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text content */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6">
+                <MapPin className="w-4 h-4 text-[#c8a35a]" />
+                <span className="text-[#c8a35a] text-sm font-semibold">
+                  {area.name}, {city.name}
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-5xl font-bold text-white mb-6">
+                Equipment Rental &amp; Space Solutions in {area.name}
+              </h1>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                {area.description}
+              </p>
+
+              {/* Highlights */}
+              <div className="flex flex-wrap gap-3 mb-8">
+                {area.highlights.map((h, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 bg-[#1a1a2e]/80 backdrop-blur-sm border border-[#c8a35a]/15 rounded-full px-4 py-2"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-[#c8a35a]" />
+                    <span className="text-gray-300 text-sm">{h}</span>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
-              <a
-                href={SITE_CONFIG.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 gold-gradient text-[#0d0d1a] px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition-opacity"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Get Free Quote
-              </a>
-              <a
-                href={`tel:${SITE_CONFIG.phone}`}
-                className="inline-flex items-center gap-2 border-2 border-[#c8a35a] text-[#c8a35a] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#c8a35a]/10 transition-colors"
-              >
-                <Phone className="w-5 h-5" />
-                Call Now
-              </a>
+            {/* Right: Booking form */}
+            <div className="lg:pl-8">
+              <BookingForm variant="hero" />
             </div>
           </div>
         </div>

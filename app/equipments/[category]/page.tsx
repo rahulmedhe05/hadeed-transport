@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { CategoryHero } from "@/components/category-hero"
+import { PageHero } from "@/components/page-hero"
 import { ProductCard } from "@/components/product-card"
 import { equipmentCategories, SITE_CONFIG } from "@/lib/data"
 
@@ -37,7 +37,12 @@ export default async function CategoryPage({ params }: Props) {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <CategoryHero title={category.name} subtitle={category.subtitle} />
+      <PageHero 
+        title={category.name} 
+        subtitle={category.subtitle} 
+        imageSlug={category.slug}
+        showForm={true}
+      />
 
       <section className="py-24 bg-[#0d0d1a]">
         <div className="max-w-7xl mx-auto px-4">

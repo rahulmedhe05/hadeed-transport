@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { CategoryHero } from "@/components/category-hero"
+import { PageHero } from "@/components/page-hero"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { Eye, Target, Award } from "lucide-react"
 
@@ -16,9 +16,17 @@ export default function AboutUsPage() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <CategoryHero
+      <PageHero
         title="About Us"
-        subtitle="Connecting You with Trusted Equipment & Space Solutions in Abu Dhabi."
+        subtitle="Connecting You with Trusted Equipment & Space Solutions in Abu Dhabi. 15+ years of experience, 500+ happy clients, and a commitment to excellence."
+        imageSlug="equipment"
+        showForm={true}
+        badges={[
+          "15+ years experience",
+          "500+ happy clients",
+          "Based in ICAD III",
+          "UAE-wide service",
+        ]}
       />
 
       {/* About Content */}

@@ -16,12 +16,36 @@ import {
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import { BookingForm } from "@/components/booking-form"
 import { SITE_CONFIG, equipmentCategories } from "@/lib/data"
 import {
   allRentalPages,
   getRentalPageBySlug,
   getRentalPageContent,
 } from "@/lib/rental-pages-data"
+
+// Rental category images from internet
+const rentalImages: Record<string, string> = {
+  crane: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+  forklift: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+  excavator: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=2070&auto=format&fit=crop",
+  generator: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop",
+  warehouse: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
+  container: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop",
+  office: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2069&auto=format&fit=crop",
+  yard: "https://images.unsplash.com/photo-1590496793929-36417d3117de?q=80&w=2070&auto=format&fit=crop",
+  caravan: "https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=2070&auto=format&fit=crop",
+  toilet: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=2070&auto=format&fit=crop",
+  storage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+  default: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+}
+
+function getRentalImage(slug: string): string {
+  for (const [key, value] of Object.entries(rentalImages)) {
+    if (slug.toLowerCase().includes(key)) return value
+  }
+  return rentalImages.default
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -188,15 +212,22 @@ export default async function RentalPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d1a] via-[#1a1a2e] to-[#0d0d1a]" />
-        <div className="absolute top-10 right-10 w-96 h-96 bg-[#c8a35a]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-[#c8a35a]/3 rounded-full blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6">
+      {/* Hero Section with Background Image */}
+      <section className="relative py-20 overflow-hidden min-h-[600px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={getRentalImage(slug)}
+            alt={`${page.productName} rental ${page.city.preposition}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a] via-[#0d0d1a]/90 to-[#0d0d1a]/70" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6 backdrop-blur-sm">
                 <MapPin className="w-4 h-4 text-[#c8a35a]" />
                 <span className="text-[#c8a35a] text-sm font-semibold">
                   Available {page.city.preposition}
@@ -205,7 +236,7 @@ export default async function RentalPage({ params }: Props) {
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
                 {content.h1}
               </h1>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
                 {content.heroSubtitle}
               </p>
               <div className="flex flex-wrap gap-4">
@@ -229,42 +260,28 @@ export default async function RentalPage({ params }: Props) {
 
               {/* Trust Badges */}
               <div className="flex flex-wrap gap-6 mt-10">
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <div className="flex items-center gap-2 text-gray-300 text-sm">
                   <Truck className="w-4 h-4 text-[#c8a35a]" />
                   Fast Delivery
                 </div>
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <div className="flex items-center gap-2 text-gray-300 text-sm">
                   <Shield className="w-4 h-4 text-[#c8a35a]" />
                   Well-Maintained
                 </div>
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <div className="flex items-center gap-2 text-gray-300 text-sm">
                   <Clock className="w-4 h-4 text-[#c8a35a]" />
                   24/7 Support
                 </div>
-                <div className="flex items-center gap-2 text-gray-400 text-sm">
+                <div className="flex items-center gap-2 text-gray-300 text-sm">
                   <Star className="w-4 h-4 text-[#c8a35a]" />
                   15+ Years
                 </div>
               </div>
             </div>
 
-            {/* Image */}
-            <div className="relative rounded-2xl overflow-hidden border border-[#c8a35a]/20">
-              <img
-                src={page.productImage}
-                alt={`${page.productName} for rent ${page.city.preposition}`}
-                className="w-full aspect-[4/3] object-cover"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="bg-[#c8a35a] text-[#0d0d1a] px-4 py-1.5 rounded-full text-sm font-semibold">
-                  Available for Rent
-                </span>
-              </div>
-              <div className="absolute bottom-4 right-4">
-                <span className="bg-[#0d0d1a]/80 text-white px-4 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm">
-                  {page.city.name}, UAE
-                </span>
-              </div>
+            {/* Booking Form */}
+            <div className="lg:col-span-1">
+              <BookingForm variant="sidebar" />
             </div>
           </div>
         </div>

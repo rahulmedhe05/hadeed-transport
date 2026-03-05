@@ -27,16 +27,23 @@ export default function ContactUsPage() {
     <main className="min-h-screen">
       <Navigation />
 
-      <section className="relative pt-32 pb-20 bg-[#0d0d1a]">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0d0d1a] via-[#0f0f1a] to-[#0d0d1a]" />
-        <div className="absolute top-20 right-10 w-72 h-72 bg-[#c8a35a]/5 rounded-full blur-3xl" />
+      <section className="relative pt-32 pb-20 min-h-[700px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+            alt="Contact Hadeed Transport"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a] via-[#0d0d1a]/95 to-[#0d0d1a]/80" />
+        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Contact Us
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Get in touch with our team for equipment and space rental inquiries.
             </p>
           </div>

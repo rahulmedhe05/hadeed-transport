@@ -1,13 +1,21 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { ArrowRight, MapPin, Truck, Warehouse, Phone, MessageCircle } from "lucide-react"
+import { ArrowRight, MapPin, Truck, Warehouse, Phone, MessageCircle, CheckCircle } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import { HowItWorks } from "@/components/how-it-works"
+import { BookingForm } from "@/components/booking-form"
 import { allCities } from "@/lib/areas"
 import { equipmentCategories, spaceRentals, SITE_CONFIG } from "@/lib/data"
+
+// City hero images
+const cityImages: Record<string, string> = {
+  dubai: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=2070&auto=format&fit=crop",
+  "abu-dhabi": "https://images.unsplash.com/photo-1512632578888-169bbbc64f33?q=80&w=2070&auto=format&fit=crop",
+  sharjah: "https://images.unsplash.com/photo-1578895101408-1a36b834405b?q=80&w=2070&auto=format&fit=crop",
+}
 
 interface Props {
   params: Promise<{ city: string }>
@@ -44,37 +52,50 @@ export default async function CityPage({ params }: Props) {
       <Navigation />
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d0d1a] via-[#1a1a2e] to-[#0d0d1a]" />
-        <div className="absolute top-20 right-10 w-96 h-96 bg-[#c8a35a]/5 rounded-full blur-3xl" />
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
-          <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6">
-            <MapPin className="w-4 h-4 text-[#c8a35a]" />
-            <span className="text-[#c8a35a] text-sm font-semibold">{city.name}, UAE</span>
-          </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
-            {city.title}
-          </h1>
-          <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto mb-10 leading-relaxed">
-            {city.description}
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a
-              href={SITE_CONFIG.whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 gold-gradient text-[#0d0d1a] px-8 py-4 rounded-full font-semibold text-lg hover:opacity-90 transition-opacity"
-            >
-              <MessageCircle className="w-5 h-5" />
-              Get Free Quote
-            </a>
-            <a
-              href={`tel:${SITE_CONFIG.phone}`}
-              className="inline-flex items-center gap-2 border-2 border-[#c8a35a] text-[#c8a35a] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#c8a35a]/10 transition-colors"
-            >
-              <Phone className="w-5 h-5" />
-              Call Now
-            </a>
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[70vh] flex items-center">
+        {/* Background image */}
+        <div className="absolute inset-0">
+          <img
+            src={cityImages[city.slug] || cityImages["abu-dhabi"]}
+            alt={city.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a]/95 via-[#0d0d1a]/80 to-[#0d0d1a]/60" />
+        </div>
+
+        <div className="absolute top-20 right-10 w-96 h-96 bg-[#c8a35a]/10 rounded-full blur-3xl" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 w-full">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left: Text content */}
+            <div>
+              <div className="inline-flex items-center gap-2 bg-[#c8a35a]/10 border border-[#c8a35a]/20 rounded-full px-5 py-2 mb-6">
+                <MapPin className="w-4 h-4 text-[#c8a35a]" />
+                <span className="text-[#c8a35a] text-sm font-semibold">{city.name}, UAE</span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+                {city.title}
+              </h1>
+              <p className="text-gray-300 text-lg md:text-xl max-w-xl mb-8 leading-relaxed">
+                {city.description}
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                {["Fast delivery", "Certified operators", "Competitive rates", "24/7 support"].map((badge) => (
+                  <div
+                    key={badge}
+                    className="flex items-center gap-2 bg-[#1a1a2e]/80 backdrop-blur-sm border border-[#c8a35a]/20 rounded-full px-4 py-2 text-sm text-gray-300"
+                  >
+                    <CheckCircle className="w-4 h-4 text-[#c8a35a]" />
+                    {badge}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Booking form */}
+            <div className="lg:pl-8">
+              <BookingForm variant="hero" />
+            </div>
           </div>
         </div>
       </section>

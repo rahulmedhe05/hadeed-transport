@@ -6,8 +6,26 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
 import { ProductCard } from "@/components/product-card"
+import { BookingForm } from "@/components/booking-form"
 import { equipmentCategories, SITE_CONFIG } from "@/lib/data"
 import { getProductDetails, getRelatedProducts } from "@/lib/product-details"
+
+// Equipment type images
+const equipmentImages: Record<string, string> = {
+  crane: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+  excavator: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=2070&auto=format&fit=crop",
+  forklift: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+  generator: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?q=80&w=2069&auto=format&fit=crop",
+  roller: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
+  default: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+}
+
+function getEquipmentImage(slug: string): string {
+  for (const [key, value] of Object.entries(equipmentImages)) {
+    if (slug.toLowerCase().includes(key)) return value
+  }
+  return equipmentImages.default
+}
 
 interface Props {
   params: Promise<{ category: string; slug: string }>
@@ -101,38 +119,34 @@ export default async function ProductPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Product Hero */}
-      <section className="py-16 bg-[#0d0d1a]">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Image */}
-            <div className="relative rounded-2xl overflow-hidden border border-[#c8a35a]/20">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full aspect-[4/3] object-cover"
-              />
-              <div className="absolute top-4 left-4">
-                <span className="bg-[#c8a35a] text-[#0d0d1a] px-4 py-1.5 rounded-full text-sm font-semibold">
-                  Available for Rent
-                </span>
-              </div>
-            </div>
+      {/* Product Hero with Background Image */}
+      <section className="relative py-20 min-h-[500px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={getEquipmentImage(slug)}
+            alt={product.name}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a] via-[#0d0d1a]/90 to-[#0d0d1a]/70" />
+        </div>
 
-            {/* Details */}
-            <div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            {/* Product Details */}
+            <div className="lg:col-span-2">
               <span className="text-[#c8a35a] text-sm font-semibold tracking-[0.2em] uppercase">
                 {category.name}
               </span>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-6">
                 {product.name}
               </h1>
-              <p className="text-gray-300 text-lg leading-relaxed mb-8">
+              <p className="text-gray-300 text-lg leading-relaxed mb-8 max-w-2xl">
                 {details.longDescription}
               </p>
 
               {/* Specifications Table */}
-              <div className="bg-[#1a1a2e] rounded-xl border border-[#c8a35a]/10 overflow-hidden mb-8">
+              <div className="bg-[#1a1a2e]/80 backdrop-blur-sm rounded-xl border border-[#c8a35a]/10 overflow-hidden mb-8 max-w-xl">
                 <div className="px-6 py-3 bg-[#c8a35a]/10 border-b border-[#c8a35a]/10">
                   <h3 className="text-white font-semibold">Specifications</h3>
                 </div>
@@ -165,6 +179,11 @@ export default async function ProductPage({ params }: Props) {
                   Call Us
                 </a>
               </div>
+            </div>
+
+            {/* Booking Form */}
+            <div className="lg:col-span-1">
+              <BookingForm variant="sidebar" />
             </div>
           </div>
         </div>

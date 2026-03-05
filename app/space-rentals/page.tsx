@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { CategoryHero } from "@/components/category-hero"
+import { PageHero } from "@/components/page-hero"
 import { HowItWorks } from "@/components/how-it-works"
 import { spaceRentals } from "@/lib/data"
 
@@ -18,14 +18,16 @@ export default function SpaceRentalsPage() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <CategoryHero
+      <PageHero
         title="Space Rentals"
-        subtitle="Affordable, adaptable space rentals for short or long-term use."
+        subtitle="Affordable, adaptable space rentals for short or long-term use. Warehouses, offices, storage containers, open yards, and more across Abu Dhabi."
+        imageSlug="space-rentals"
+        showForm={true}
         badges={[
-          "Well-maintained and operator-optional",
-          "Short- and long-term rental",
-          "Fast dispatch and reliable support",
-          "Caterpillar and other trusted brands",
+          "Secure facilities",
+          "Short & long-term leases",
+          "24/7 access available",
+          "Strategic ICAD III location",
         ]}
       />
 

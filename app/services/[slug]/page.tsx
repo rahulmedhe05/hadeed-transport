@@ -17,12 +17,22 @@ import {
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
+import { BookingForm } from "@/components/booking-form"
 import { SITE_CONFIG } from "@/lib/data"
 import {
   keywordPages,
   getKeywordPageBySlug,
   getRelatedKeywordPages,
 } from "@/lib/keyword-pages-data"
+
+// Service category images from internet
+const categoryImages: Record<string, string> = {
+  equipment: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+  space: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
+  service: "https://images.unsplash.com/photo-1581094288338-2314dddb7ece?q=80&w=2070&auto=format&fit=crop",
+  location: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+  industry: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop",
+}
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -146,51 +156,67 @@ export default async function KeywordPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#c8a35a]/10 via-transparent to-transparent" />
-        <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle at 20% 50%, rgba(200,163,90,0.08) 0%, transparent 50%)" }} />
+      {/* Hero Section with Background Image */}
+      <section className="relative pt-32 pb-20 overflow-hidden min-h-[600px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={categoryImages[page.category] || categoryImages.equipment}
+            alt={page.keyword}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0d0d1a] via-[#0d0d1a]/90 to-[#0d0d1a]/70" />
+        </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-gray-400 mb-8">
-            <Link href="/" className="hover:text-[#c8a35a] transition-colors">Home</Link>
-            <ChevronRight className="w-4 h-4" />
-            <Link href="/equipments" className="hover:text-[#c8a35a] transition-colors">Services</Link>
-            <ChevronRight className="w-4 h-4" />
-            <span className="text-[#c8a35a]">{page.keyword}</span>
-          </nav>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+            <div className="lg:col-span-2">
+              {/* Breadcrumb */}
+              <nav className="flex items-center gap-2 text-sm text-gray-400 mb-8">
+                <Link href="/" className="hover:text-[#c8a35a] transition-colors">Home</Link>
+                <ChevronRight className="w-4 h-4" />
+                <Link href="/equipments" className="hover:text-[#c8a35a] transition-colors">Services</Link>
+                <ChevronRight className="w-4 h-4" />
+                <span className="text-[#c8a35a]">{page.keyword}</span>
+              </nav>
 
-          {/* Category Badge */}
-          <div className="mb-6">
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${categoryColors[page.category]}`}>
-              {categoryLabels[page.category]}
-            </span>
-          </div>
+              {/* Category Badge */}
+              <div className="mb-6">
+                <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${categoryColors[page.category]}`}>
+                  {categoryLabels[page.category]}
+                </span>
+              </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-            {page.h1}
-          </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                {page.h1}
+              </h1>
 
-          <p className="text-xl text-gray-300 max-w-3xl mb-10 leading-relaxed">
-            {page.heroSubtitle}
-          </p>
+              <p className="text-xl text-gray-300 max-w-3xl mb-10 leading-relaxed">
+                {page.heroSubtitle}
+              </p>
 
-          <div className="flex flex-wrap gap-4">
-            <a
-              href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Hi, I'm interested in ${page.keyword}. Please share details.`)}`}
-              className="inline-flex items-center px-8 py-4 bg-[#c8a35a] text-black font-bold rounded-lg hover:bg-[#d4b06a] transition-all shadow-lg shadow-[#c8a35a]/20"
-            >
-              <MessageCircle className="w-5 h-5 mr-2" />
-              Get Free Quote on WhatsApp
-            </a>
-            <a
-              href={`tel:${SITE_CONFIG.phone}`}
-              className="inline-flex items-center px-8 py-4 border-2 border-[#c8a35a]/30 text-white font-bold rounded-lg hover:border-[#c8a35a] transition-all"
-            >
-              <Phone className="w-5 h-5 mr-2" />
-              Call Now
-            </a>
+              <div className="flex flex-wrap gap-4">
+                <a
+                  href={`https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Hi, I'm interested in ${page.keyword}. Please share details.`)}`}
+                  className="inline-flex items-center px-8 py-4 bg-[#c8a35a] text-black font-bold rounded-lg hover:bg-[#d4b06a] transition-all shadow-lg shadow-[#c8a35a]/20"
+                >
+                  <MessageCircle className="w-5 h-5 mr-2" />
+                  Get Free Quote on WhatsApp
+                </a>
+                <a
+                  href={`tel:${SITE_CONFIG.phone}`}
+                  className="inline-flex items-center px-8 py-4 border-2 border-[#c8a35a]/30 text-white font-bold rounded-lg hover:border-[#c8a35a] transition-all"
+                >
+                  <Phone className="w-5 h-5 mr-2" />
+                  Call Now
+                </a>
+              </div>
+            </div>
+
+            {/* Booking Form */}
+            <div className="lg:col-span-1">
+              <BookingForm variant="sidebar" />
+            </div>
           </div>
         </div>
       </section>

@@ -4,7 +4,7 @@ import { ArrowRight, Truck, Wrench } from "lucide-react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { CategoryHero } from "@/components/category-hero"
+import { PageHero } from "@/components/page-hero"
 import { HowItWorks } from "@/components/how-it-works"
 import { equipmentCategories } from "@/lib/data"
 
@@ -20,9 +20,11 @@ export default function EquipmentsPage() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <CategoryHero
-        title="Equipments"
-        subtitle="Comprehensive Rental Solutions for Heavy Machinery and Equipment"
+      <PageHero
+        title="Equipment Rentals"
+        subtitle="Comprehensive rental solutions for heavy machinery and construction equipment. From earthmoving machines to precision tools, we have everything your project needs."
+        imageSlug="equipment"
+        showForm={true}
       />
 
       {/* Equipment Categories Grid */}

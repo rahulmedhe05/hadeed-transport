@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppFloat } from "@/components/whatsapp-float"
-import { CategoryHero } from "@/components/category-hero"
+import { PageHero } from "@/components/page-hero"
 import { SpaceDetailSection } from "@/components/space-detail-section"
 import { spaceRentals } from "@/lib/data"
 
@@ -17,7 +17,7 @@ export default function MobileToiletsPage() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <CategoryHero title={space.name} subtitle={space.subtitle} />
+      <PageHero title={space.name} subtitle={space.subtitle} imageSlug="mobile-toilets" showForm={true} />
       <SpaceDetailSection space={space} />
       <Footer />
       <WhatsAppFloat />
