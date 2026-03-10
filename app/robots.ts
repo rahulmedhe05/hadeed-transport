@@ -1,51 +1,15 @@
-import type { MetadataRoute } from "next"
+import { MetadataRoute } from "next";
+import { SEO_CONFIG } from "@/lib/seo-config";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = "https://hadeed-transport.com"
-  
   return {
     rules: [
       {
         userAgent: "*",
         allow: "/",
-        disallow: [
-          "/api/",
-          "/_next/",
-          "/private/",
-        ],
-      },
-      {
-        userAgent: "Googlebot",
-        allow: "/",
-        disallow: ["/api/", "/_next/"],
-      },
-      {
-        userAgent: "Googlebot-Image",
-        allow: "/",
-      },
-      {
-        userAgent: "Bingbot",
-        allow: "/",
-        disallow: ["/api/", "/_next/"],
-      },
-      {
-        userAgent: "GPTBot",
-        allow: "/",
-      },
-      {
-        userAgent: "ChatGPT-User",
-        allow: "/",
-      },
-      {
-        userAgent: "Google-Extended",
-        allow: "/",
-      },
-      {
-        userAgent: "anthropic-ai",
-        allow: "/",
+        disallow: ["/api/", "/admin/", "/_next/", "/private/"],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl,
-  }
+    sitemap: `${SEO_CONFIG.siteUrl}/sitemap.xml`,
+  };
 }
